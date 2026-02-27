@@ -4,7 +4,7 @@
 > Transforming additive manufacturing through autonomous, closed-loop monitoring that turns machine failures into instant alerts and actionable fleet data.
 
 ## Details
-**Placeholder** is an AI-powered process monitoring platform designed to help manufacturers, teams, and hobbyists eliminate 3D printing failures in real-time. Rather than relying on manual supervision or post-print inspection, Placeholder uses a multi-camera computer vision system to continuously assess the health of a print. 
+**Placeholder Name** is an AI-powered process monitoring platform designed to help manufacturers, teams, and hobbyists eliminate 3D printing failures in real-time. Rather than relying on manual supervision or post-print inspection, Placeholder uses a multi-camera computer vision system to continuously assess the health of a print. 
 
 The system tracks the physical layer against the intended G-code path, identifying defects in the machine’s execution (such as warping, spaghetti, or under-extrusion) as they happen. Through the Placeholder web platform, authenticated users can monitor their machines via a real-time livestream feed, complete with a dynamic "Print Health" confidence percentage bar. When the AI's confidence drops below a safe threshold, the system triggers an emergency stop and immediately dispatches an email notification. 
 
