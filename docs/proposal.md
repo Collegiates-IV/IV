@@ -3,57 +3,54 @@
 ## Problem Statement  
 **What & Why**
 
-Preparing for coding interviews and improving programming skills is inefficient for many developers because they do not know *what* to practice or *what they are weak at*. Most platforms present large problem banks without guidance, leading users to either randomly select problems, rely on full solutions, or reverse-engineer answers without truly improving their skills.
+Preparing for and executing long 3D prints is inefficient and costly because prints often fail silently, wasting hours of machine time and expensive filament. Most operators do not know a print is failing until they manually check on it hours later, leading to catastrophic material waste and delayed production schedules.
 
-Current approaches such as watching tutorials, asking AI for answers, or searching for solutions prioritize completion over understanding. This results in shallow learning, poor skill transfer, and wasted preparation time.
+Current approaches such as manual supervision, relying on basic filament sensors, or waiting for post-print inspections fail to address the root issue as it happens. This results in wasted resources, damaged equipment, and unpredictable production times.
 
-Our project addresses this by identifying skill gaps first, then guiding users toward focused, intentional practice.
+Our project addresses this by continuously monitoring the print in real-time, detecting defects as they occur, and autonomously intervening to prevent further waste.
 
 ---
 
 ## Target Users  
 **Who Benefits**
 
-- Computer science students preparing for internships or full-time roles  
-- Developers preparing for technical interviews  
-- Self-taught programmers looking to strengthen weak areas  
-- Anyone practicing data structures and algorithms who wants structured improvement rather than random repetition  
+- Managers of makerspaces and university engineering labs  
+- Operators of industrial 3D print farms  
+- Hobbyists and enthusiasts running long or complex prints  
+- Engineering teams looking to gather fleet-wide statistics and improve print reliability  
 
-The platform is designed to support users at varying skill levels, from beginner to advanced.
+The platform is designed to support users scaling from a single at-home printer to a massive multi-machine industrial farm.
 
 ---
 
 ## Solution Overview  
 **How the App Solves the Problem**
 
-The application begins with a coding assessment that evaluates a user’s strengths and weaknesses across core programming topics. Based on assessment results and ongoing performance, the system generates a personalized roadmap of coding problems tailored to the user’s needs.
+
+
+The application provides a centralized, autonomous monitoring system that uses multi-camera computer vision to continuously assess the health of a 3D print. By evaluating the physical layer being printed against the intended G-code, the system can immediately identify catastrophic defects like warping, spaghetti, or under-extrusion.
 
 Key characteristics of the solution:
-- Problems are recommended dynamically based on observed weaknesses
-- Progress is tracked over time, including completed problems and time spent
-- The AI acts as a learning guide, not a solver  
-- Guidance is provided using a Socratic approach, asking leading questions and offering conceptual hints rather than full solutions  
-- The roadmap adapts as the user improves or continues to struggle with specific topics  
+- Prints are monitored via a real-time livestream feed complete with a dynamic "Print Health" confidence percentage bar.
+- The system automatically triggers an emergency stop via OctoPrint when the AI's confidence drops below a safe threshold.
+- Instant email notifications are dispatched the moment a defect is detected.  
+- Robust Organization management allows teams to share live camera feeds, track fleet-wide statistics, and subscribe to shared error notifications.  
 
-The goal is to ensure users practice the *right problems at the right time*, maximizing learning efficiency and long-term skill growth.
+The goal is to eliminate 3D printing failures in real-time, turning machine errors into instant alerts and actionable fleet data, ultimately saving time and material.
 
 ---
 
 ## Tech Stack Justification  
 **Why These Tools**
 
-- **Next.js**  
-  Provides a modern, performant frontend framework with built-in routing, server-side rendering, and scalability. It enables a clean user experience for assessments, problem navigation, and progress tracking.
+- **Next.js** Provides a modern, performant frontend framework with built-in routing, server-side rendering, and scalability. It enables a clean, responsive user experience for the real-time print dashboard, livestream feeds, and organization management.
 
-- **FastAPI**  
-  Offers a high-performance Python backend with automatic API documentation, strong type validation, and async support. It is well-suited for handling assessments, roadmap logic, user data, and AI integration.
+- **FastAPI** Offers a high-performance Python backend with async support, crucial for processing high-speed telemetry and handling live computer vision inference. It serves as the rapid bridge between the camera feeds, AI models, and the frontend.
 
-- **PostgreSQL**  
-  A reliable relational database ideal for storing user accounts, assessment results, problem history, performance metrics, and roadmap state with strong consistency guarantees.
+- **Supabase (PostgreSQL)** A reliable relational database and authentication provider ideal for securely storing user accounts, organization structures, print history, fleet-wide statistics, and handling Row Level Security for team feeds.
 
-- **gpt-oss:20b (via Ollama)**  
-  Enables local, self-hosted AI inference without relying on external APIs. This allows greater control over behavior, privacy, cost, and response constraints. The model is used strictly for guidance, analysis, and roadmap generation—not for providing direct solutions.
+- **Ollama (Llama 3 / Mistral) & YOLO** Enables local, high-speed AI inference for computer vision (YOLO) and diagnostic reasoning (LLMs) without relying on expensive cloud APIs. This ensures low-latency defect detection and keeps proprietary manufacturing data completely private.
 
-This stack balances performance, scalability, developer productivity, and control over AI behavior while remaining practical for both prototyping and future expansion.
+- **OctoPrint API** Provides the essential control interface to communicate directly with the 3D printers, allowing the system to pull real-time telemetry and autonomously inject G-code commands like emergency stops.
 
 ---
