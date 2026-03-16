@@ -1,29 +1,29 @@
-# Placeholder: AI-Powered Defect Detection App
+# PrintGuard: AI-Powered Defect Detection App
 
 ## Mission Statement
 > Transforming additive manufacturing through autonomous, closed-loop monitoring that turns machine failures into instant alerts and actionable fleet data.
 
 ## Details
-**Placeholder Name** is an AI-powered process monitoring platform designed to help manufacturers, teams, and hobbyists eliminate 3D printing failures in real-time. Rather than relying on manual supervision or post-print inspection, Placeholder uses a multi-camera computer vision system to continuously assess the health of a print. 
+**PrintGuard** is an AI-powered process monitoring platform designed to help manufacturers, teams, and hobbyists eliminate 3D printing failures in real-time. Rather than relying on manual supervision or post-print inspection, PrintGuard uses a multi-camera computer vision system to continuously assess the health of a print. 
 
-The system tracks the physical layer against the intended G-code path, identifying defects in the machine’s execution (such as warping, spaghetti, or under-extrusion) as they happen. Through the Placeholder web platform, authenticated users can monitor their machines via a real-time livestream feed, complete with a dynamic "Print Health" confidence percentage bar. When the AI's confidence drops below a safe threshold, the system triggers an emergency stop and immediately dispatches an email notification. 
+The system tracks the physical layer against the intended G-code path, identifying defects in the machine’s execution (such as warping, spaghetti, or under-extrusion) as they happen. Through the PrintGuard web platform, authenticated users can monitor their machines via a real-time livestream feed, complete with a dynamic "Print Health" confidence percentage bar. When the AI's confidence drops below a safe threshold, the system triggers an emergency stop and immediately dispatches an email notification. 
 
-Built with scalability in mind, Osiris-AM features robust Organization management. Users can join teams to view each other's live printing feeds, analyze fleet-wide statistics, and subscribe to shared error notifications, making it the perfect tool for makerspaces, university labs, and industrial print farms.
+Built with scalability in mind, PrintGuard features robust Organization management. Users can join teams to view each other's live printing feeds, analyze fleet-wide statistics, and subscribe to shared error notifications, making it the perfect tool for makerspaces, university labs, and industrial print farms.
 
 ## Unique Features
 * **Real-Time Print Dashboard:** Monitor your prints with a live camera feed and a dynamic AI confidence percentage bar indicating current print health.
 * **Instant Email Notifications:** Secure user authentication linked to an automated alert system that emails you the moment a defect is detected.
 * **Organization & Team Hub:** Create or join organizations to share live camera feeds, track fleet-wide print statistics, and manage collaborative printing workflows.
 * **Multi-Camera Vision Mesh:** Scalable support for multiple angles to eliminate nozzle occlusion and monitor large-scale industrial printers.
-* **Defect Detection:** Real-time identification of "Spaghetti," "Warping," and "Delamination" using high-speed Convolutional Neural Networks (CNNs).
+* **Defect Detection:** Real-time identification of "Spaghetti," "Warping," and "Delamination" using high-speed YOLO (You Only Look Once) object detection models.
 * **Autonomous Intervention:** Automatic "Emergency Stop" triggers via OctoPrint when catastrophic failures occur.
 
 ## Tech Stack
 * **Backend:** FastAPI (Python)
 * **Frontend:** Next.js / Node.js
 * **Database & Auth:** Supabase (PostgreSQL, Authentication, Row Level Security)
-* **Local AI Platform:** Ollama (Llama 3 / Mistral)
-* **Control Interface:** OctoPrint API
+* **Computer Vision Model:** YOLO (Ultralytics / PyTorch)
+* **Control Interface:** (TBD)
 
 ---
 
@@ -65,11 +65,11 @@ Built with scalability in mind, Osiris-AM features robust Organization managemen
 ### Frontend Setup
 
 1.  **Environment variable set up:**
-    Create a new file named `.env.local` in the `frontend/osiris` directory and add correct variables from `.env.example`. Change the backend URL to your local backend URL if needed.
+    Create a new file named `.env.local` in the `frontend/printguard` directory and add correct variables from `.env.example`. Change the backend URL to your local backend URL if needed.
 
 2.  **Navigate to the Frontend Directory:**
     ```bash
-    cd ../frontend/osiris
+    cd frontend/printguard
     ```
 
 3.  **Install Packages & Launch Development Server:**
