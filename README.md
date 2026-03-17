@@ -1,7 +1,7 @@
 # PrintGuard: AI-Powered Defect Detection App
 
 ## Mission Statement
-> Transforming additive manufacturing through autonomous, closed-loop monitoring that turns machine failures into instant alerts and actionable fleet data.
+> Transforming additive manufacturing through autonomous, scalable, and concurrent monitoring that turns machine failures into instant alerts and actionable data.
 
 ## Details
 **PrintGuard** is an AI-powered process monitoring platform designed to help manufacturers, teams, and hobbyists eliminate 3D printing failures in real-time. Rather than relying on manual supervision or post-print inspection, PrintGuard uses a multi-camera computer vision system to continuously assess the health of a print. 
@@ -19,11 +19,10 @@ Built with scalability in mind, PrintGuard features robust Organization manageme
 * **Autonomous Intervention:** Automatic "Emergency Stop" triggers via OctoPrint when catastrophic failures occur.
 
 ## Tech Stack
-* **Backend:** FastAPI (Python)
+* **Backend:** FastAPI (Python w/ pyserial & OpenCV)
 * **Frontend:** Next.js / Node.js
 * **Database & Auth:** Supabase (PostgreSQL, Authentication, Row Level Security)
 * **Computer Vision Model:** YOLO (Ultralytics / PyTorch)
-* **Control Interface:** (TBD)
 
 ---
 
@@ -34,7 +33,7 @@ Built with scalability in mind, PrintGuard features robust Organization manageme
 ### Backend Setup
 
 1.  **Set up environment variables**
-    Look at `.env.example` in the backend directory and create a new file named `.env`. Add the correct variables (OctoPrint API keys, Supabase credentials, Email SMTP settings, etc.).
+    Look at `.env.example` in the backend directory and create a new file named `.env`. Add the correct variables (Supabase credentials, Email SMTP settings, etc.).
 
 2.  **Navigate to the backend directory:**
     ```bash
