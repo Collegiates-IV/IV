@@ -25,13 +25,17 @@ import SupabaseProvider from "@/components/supabase-provider";
 import { ConfigError } from "@/components/config-error";
 import { BackendHealthProvider } from "@/components/backend-health-provider";
 import { BackendStatusToast } from "@/components/backend-status-toast";
+import { cookies } from "next/headers";
 
 export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const devMode = process.env.DEV_MODE === "true";
+  const cookieStore = await cookies();
+  const isDemoBypass = cookieStore.get("demo_bypass")?.value === "true";
+  
+  const devMode = process.env.DEV_MODE === "true" || isDemoBypass;
 
   // ── DEV MODE: skip Supabase entirely ─────────────────────────────
   if (devMode) {

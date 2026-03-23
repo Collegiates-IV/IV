@@ -3,8 +3,9 @@ from __future__ import annotations
 import time
 from typing import Generator, List, Optional
 
+import asyncio
 import cv2
-from fastapi import APIRouter, HTTPException, Query
+from fastapi import APIRouter, HTTPException, Query, Request
 from fastapi.responses import Response, StreamingResponse
 from pydantic import BaseModel, Field
 
@@ -82,24 +83,27 @@ def getSnapshot(
 
 
 @router.get("/stream")
-def streamVideo(
+async def streamVideo(
+    request: Request,
     sourceId: int = Query(default=0, ge=0, le=16),
     fps: int = Query(default=10, ge=1, le=60),
 ) -> StreamingResponse:
-    def frameGenerator() -> Generator[bytes, None, None]:
+    async def frameGenerator():
         frameDelay = 1.0 / float(fps)
         while True:
+            if await request.is_disconnected():
+                break
             frameData = cameraManager.getLatestFrame(sourceId, None, None, fps)
             if frameData is None:
-                time.sleep(frameDelay)
+                await asyncio.sleep(frameDelay)
                 continue
             _, frame = frameData
             frameBytes = _encodeJpeg(frame)
             if frameBytes is None:
-                time.sleep(frameDelay)
+                await asyncio.sleep(frameDelay)
                 continue
             yield b"--frame\r\nContent-Type: image/jpeg\r\n\r\n" + frameBytes + b"\r\n"
-            time.sleep(frameDelay)
+            await asyncio.sleep(frameDelay)
 
     return StreamingResponse(frameGenerator(), media_type="multipart/x-mixed-replace; boundary=frame")
 

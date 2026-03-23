@@ -44,26 +44,14 @@ export function LiveFeedPanel({ printer, className }: LiveFeedPanelProps) {
       <div className="relative flex-1 min-h-[260px] bg-[hsl(220_14%_5%)] flex items-center justify-center overflow-hidden">
         {printer.cameraConnected ? (
           <>
-            {/* Scan line animation to simulate live video */}
-            <div className="live-scan absolute inset-0" />
-            {/* Placeholder camera grid */}
-            <div className="absolute inset-0 opacity-5"
-              style={{
-                backgroundImage: "linear-gradient(hsl(var(--border)) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--border)) 1px, transparent 1px)",
-                backgroundSize: "32px 32px",
-              }}
+            {/* Live Camera Feed */}
+            <img 
+              src={`${process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000"}/api/video/stream?sourceId=0`} 
+              alt={`Live Camera Feed for ${printer.name}`}
+              className="absolute inset-0 w-full h-full object-cover z-10"
             />
-            {/* Camera placeholder icon */}
-            <div className="flex flex-col items-center gap-3 text-muted-foreground/40 z-10">
-              <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
-                <rect x="4" y="12" width="40" height="28" rx="3" stroke="currentColor" strokeWidth="1.5" />
-                <circle cx="24" cy="26" r="8" stroke="currentColor" strokeWidth="1.5" />
-                <circle cx="24" cy="26" r="4" stroke="currentColor" strokeWidth="1.5" />
-                <path d="M16 12 L20 6 H28 L32 12" stroke="currentColor" strokeWidth="1.5" />
-              </svg>
-              <p className="text-xs font-medium">Awaiting live frame stream</p>
-              <p className="text-[11px]">WebSocket connected — frames will appear here</p>
-            </div>
+            {/* Scan line animation to simulate live video */}
+            <div className="live-scan absolute inset-0 z-20 pointer-events-none" />
 
             {/* Status overlay */}
             {printer.status !== "monitoring" && printer.status !== "idle" && (

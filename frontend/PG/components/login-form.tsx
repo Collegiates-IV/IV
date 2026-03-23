@@ -48,6 +48,11 @@ export function LoginForm({
     }
   };
 
+  const handleBypass = () => {
+    document.cookie = "demo_bypass=true; path=/";
+    router.push("/protected");
+  };
+
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card>
@@ -92,6 +97,9 @@ export function LoginForm({
               {error && <p className="text-sm text-red-500">{error}</p>}
               <Button type="submit" className="w-full" disabled={isLoading}>
                 {isLoading ? "Logging in..." : "Login"}
+              </Button>
+              <Button type="button" variant="outline" className="w-full mt-2" onClick={handleBypass}>
+                Bypass for Demo
               </Button>
             </div>
             <div className="mt-4 text-center text-sm">

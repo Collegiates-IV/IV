@@ -20,6 +20,11 @@ export function ConfigError({ errorType, errorMessage }: ConfigErrorProps) {
         window.location.reload();
     };
 
+    const handleBypass = () => {
+        document.cookie = "demo_bypass=true; path=/";
+        window.location.reload();
+    };
+
     const getErrorDetails = () => {
         switch (errorType) {
             case "BACKEND_DOWN":
@@ -114,6 +119,12 @@ export function ConfigError({ errorType, errorMessage }: ConfigErrorProps) {
                         >
                             <RefreshCw className={`h-4 w-4 ${isRetrying ? "animate-spin" : ""}`} />
                             {isRetrying ? "Retrying..." : "Retry Connection"}
+                        </Button>
+                        <Button
+                            onClick={handleBypass}
+                            variant="outline"
+                        >
+                            Bypass for Demo
                         </Button>
                     </div>
                 </div>

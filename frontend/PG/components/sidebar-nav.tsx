@@ -14,7 +14,6 @@ import { cn } from "@/lib/utils";
 
 const NAV_ITEMS = [
   { href: "/protected/dashboard", label: "Dashboard",  icon: LayoutDashboard },
-  { href: "/protected/printers",  label: "Printers",   icon: Printer },
   { href: "/protected/alerts",    label: "Alerts",     icon: Bell, badge: 2 },
   { href: "/protected/history",   label: "History",    icon: History },
   { href: "/protected/fleet",     label: "Fleet",      icon: Server },

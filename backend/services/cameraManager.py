@@ -47,10 +47,25 @@ class CameraWorker:
         frameDelay = 1.0 / float(self.maxFps) if self.maxFps > 0 else 0.0
         try:
             while not self._stopEvent.is_set():
+                if not capture.isOpened():
+                    # Camera failed to open or was disconnected. Retry every 1 second.
+                    capture.release()
+                    time.sleep(1.0)
+                    capture = cv2.VideoCapture(self.sourceId)
+                    if self.width is not None:
+                        capture.set(cv2.CAP_PROP_FRAME_WIDTH, self.width)
+                    if self.height is not None:
+                        capture.set(cv2.CAP_PROP_FRAME_HEIGHT, self.height)
+                    continue
+
                 ok, frame = capture.read()
                 if ok and frame is not None:
                     with self._lock:
                         self._latestFrame = (time.time(), frame)
+                else:
+                    # If reading fails completely, release capture so it can be re-opened next loop
+                    capture.release()
+                    
                 if frameDelay > 0:
                     time.sleep(frameDelay)
         finally:
