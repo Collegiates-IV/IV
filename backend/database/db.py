@@ -1,9 +1,10 @@
 from fastapi import APIRouter
 import os
 from dotenv import load_dotenv
+from pathlib import Path
 
-# 1. Load the secrets from the .env file
-load_dotenv()
+# 1. Load the secrets from the .env file (relative to this file's location)
+load_dotenv(Path(__file__).parent.parent / ".env")
 
 # We use a Router here so we can include it in the main app
 router = APIRouter()

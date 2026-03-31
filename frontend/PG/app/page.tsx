@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
 
 export default function HomePage() {
-  redirect("/protected/dashboard");
+  redirect("/auth/login");
 }
