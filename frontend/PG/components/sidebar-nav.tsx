@@ -9,15 +9,17 @@ import {
   History,
   Server,
   Settings,
+  BarChart3,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const NAV_ITEMS = [
-  { href: "/protected/dashboard", label: "Dashboard",  icon: LayoutDashboard },
-  { href: "/protected/alerts",    label: "Alerts",     icon: Bell, badge: 2 },
-  { href: "/protected/history",   label: "History",    icon: History },
-  { href: "/protected/fleet",     label: "Fleet",      icon: Server },
-  { href: "/protected/settings",  label: "Settings",   icon: Settings },
+  { href: "/protected/dashboard",  label: "Dashboard",  icon: LayoutDashboard },
+  { href: "/protected/alerts",     label: "Alerts",     icon: Bell,       badge: 2 },
+  { href: "/protected/history",    label: "History",    icon: History },
+  { href: "/protected/fleet",      label: "Fleet",      icon: Server },
+  { href: "/protected/analytics",  label: "Analytics",  icon: BarChart3 },
+  { href: "/protected/settings",   label: "Settings",   icon: Settings },
 ];
 
 export function SidebarNav() {
@@ -39,7 +41,7 @@ export function SidebarNav() {
       </div>
 
       {/* Nav items */}
-      <nav className="flex flex-col gap-1 p-3 flex-1">
+      <nav className="flex flex-col gap-0.5 p-3 flex-1">
         {NAV_ITEMS.map(({ href, label, icon: Icon, badge }) => {
           const active = pathname === href || pathname.startsWith(href + "/");
           return (
@@ -56,7 +58,9 @@ export function SidebarNav() {
               <Icon size={16} strokeWidth={active ? 2 : 1.5} />
               <span>{label}</span>
               {badge && (
-                <span className="ml-auto bg-pg-danger text-white text-[10px] font-bold rounded-full w-4 h-4 flex items-center justify-center">
+                // Badge uses muted amber — not red — since unread counts
+                // are not emergency-level information
+                <span className="ml-auto bg-pg-warning text-white text-[10px] font-bold rounded-full w-4 h-4 flex items-center justify-center">
                   {badge}
                 </span>
               )}

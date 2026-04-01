@@ -5,69 +5,71 @@
 @layer base {
   :root {
     /* ── Backgrounds ─────────────────────────────── */
-    --background:            0 0% 100%;
-    --foreground:            0 5% 12%;
+    --background:            28 12% 97%;       /* soft warm gray, not plain white */
+    --foreground:            220 15% 14%;      /* dark charcoal, not harsh black */
 
-    --card:                  0 80% 99%;
-    --card-foreground:       0 5% 15%;
+    --card:                  28 10% 98%;       /* warm concrete surface */
+    --card-foreground:       220 15% 14%;
 
-    --popover:               0 0% 100%;
-    --popover-foreground:    0 5% 12%;
+    --popover:               28 10% 98%;
+    --popover-foreground:    220 15% 14%;
 
-    --surface-1:             0 80% 99%;
-    --surface-2:             0 80% 96%;
-    --surface-3:             0 80% 93%;
+    --surface-1:             28 10% 98%;       /* card/panel level */
+    --surface-2:             28 8%  95%;       /* subtle inset / row hover */
+    --surface-3:             28 6%  91%;       /* deeper inset / grouped */
 
-    /* ── Brand Red ────────────────────────────────── */
-    --primary:               0 80% 42%;
+    /* ── Primary — industrial slate blue ─────────── */
+    /* Replaces brand red as the interactive accent.  */
+    /* Used for: active nav, buttons, focus rings,    */
+    /* links, toggles. Does NOT mean "healthy".       */
+    --primary:               213 52% 38%;
     --primary-foreground:    0 0% 100%;
 
     /* ── Secondary / muted ────────────────────────── */
-    --secondary:             0 10% 94%;
-    --secondary-foreground:  0 5% 25%;
+    --secondary:             220 10% 93%;
+    --secondary-foreground:  220 10% 30%;
 
-    --muted:                 0 8% 95%;
-    --muted-foreground:      0 5% 48%;
+    --muted:                 220 9% 94%;
+    --muted-foreground:      220 8% 50%;
 
-    --accent:                0 70% 42% / 0.08;
-    --accent-foreground:     0 80% 35%;
+    --accent:                220 12% 91%;
+    --accent-foreground:     220 15% 14%;
 
-    /* ── Destructive ──────────────────────────────── */
-    --destructive:           0 80% 42%;
+    /* ── Destructive (form errors, hard deletes) ──── */
+    --destructive:           4 68% 44%;
     --destructive-foreground:0 0% 100%;
 
     /* ── Borders / inputs ─────────────────────────── */
-    --border:                0 30% 90%;
-    --input:                 0 50% 95%;
-    --ring:                  0 80% 42%;
+    --border:                220 10% 88%;
+    --input:                 220 10% 93%;
+    --ring:                  213 52% 38%;      /* matches primary */
 
     /* ── Status semantic colors ───────────────────── */
-    --pg-healthy:            142 60% 32%;
-    --pg-healthy-dim:        142 50% 94%;
-    --pg-warning:            34 90% 40%;
-    --pg-warning-dim:        34 80% 94%;
-    --pg-danger:             0 80% 42%;
-    --pg-danger-dim:         0 70% 94%;
-    --pg-offline:            0 5% 52%;
-    --pg-offline-dim:        0 5% 93%;
-    --pg-paused:             210 70% 42%;
-    --pg-paused-dim:         210 60% 94%;
-
-    /* ── Brand red tints (for transparent panel sections) */
-    --pg-brand-tint:         0 80% 42% / 0.06;
-    --pg-brand-tint-hover:   0 80% 42% / 0.12;
+    /* These are the ONLY colors that carry meaning.  */
+    /* Use them exclusively for operational state,    */
+    /* not decoration.                                */
+    --pg-healthy:            142 52% 34%;      /* muted forest green */
+    --pg-healthy-dim:        142 40% 95%;
+    --pg-warning:            38  78% 42%;      /* muted sulfur amber */
+    --pg-warning-dim:        38  65% 95%;
+    --pg-danger:             4   68% 44%;      /* fired-clay muted red */
+    --pg-danger-dim:         4   55% 95%;
+    --pg-offline:            220 8%  48%;      /* dark neutral graphite */
+    --pg-offline-dim:        220 8%  92%;
+    --pg-paused:             210 55% 40%;      /* muted steel blue */
+    --pg-paused-dim:         210 45% 94%;
 
     /* ── Layout ───────────────────────────────────── */
     --sidebar-width:         240px;
     --topbar-height:         56px;
-    --radius:                0.75rem;
+    --radius:                0.625rem;         /* slightly tighter radius — more industrial */
 
     /* ── Charts ───────────────────────────────────── */
-    --chart-1:               0   80% 42%;
-    --chart-2:               142 60% 32%;
-    --chart-3:               34  90% 40%;
-    --chart-4:               210 70% 42%;
-    --chart-5:               270 60% 48%;
+    --chart-1:               213 52% 38%;      /* primary blue (was red) */
+    --chart-2:               142 52% 34%;      /* healthy green */
+    --chart-3:               38  78% 42%;      /* warning amber */
+    --chart-4:               210 55% 40%;      /* paused blue */
+    --chart-5:               270 45% 45%;      /* purple accent */
   }
 }
 
@@ -82,56 +84,64 @@
 
   body {
     @apply bg-background text-foreground antialiased;
-    font-feature-settings: "rlig" 1, "calt" 1;
+    font-feature-settings: "rlig" 1, "calt" 1, "tnum" 1; /* tabular nums enabled globally */
   }
 
-  /* Light-mode scrollbar */
+  /* Scrollbar */
   ::-webkit-scrollbar { width: 6px; height: 6px; }
   ::-webkit-scrollbar-track { background: transparent; }
   ::-webkit-scrollbar-thumb {
     background: hsl(var(--border));
     border-radius: 3px;
   }
-  ::-webkit-scrollbar-thumb:hover { background: hsl(var(--muted-foreground) / 0.5); }
+  ::-webkit-scrollbar-thumb:hover { background: hsl(var(--muted-foreground) / 0.4); }
 }
 
 /* ── Utility classes ───────────────────────────────── */
 @layer utilities {
 
-  /* Status semantic colors */
+  /* Status text colors */
   .text-healthy   { color: hsl(var(--pg-healthy)); }
   .text-warning   { color: hsl(var(--pg-warning)); }
   .text-danger    { color: hsl(var(--pg-danger)); }
   .text-offline   { color: hsl(var(--pg-offline)); }
   .text-paused    { color: hsl(var(--pg-paused)); }
 
+  /* Status dim backgrounds */
   .bg-healthy-dim  { background-color: hsl(var(--pg-healthy-dim)); }
   .bg-warning-dim  { background-color: hsl(var(--pg-warning-dim)); }
   .bg-danger-dim   { background-color: hsl(var(--pg-danger-dim)); }
   .bg-offline-dim  { background-color: hsl(var(--pg-offline-dim)); }
   .bg-paused-dim   { background-color: hsl(var(--pg-paused-dim)); }
 
+  /* Status borders */
   .border-healthy  { border-color: hsl(var(--pg-healthy)); }
   .border-warning  { border-color: hsl(var(--pg-warning)); }
   .border-danger   { border-color: hsl(var(--pg-danger)); }
   .border-offline  { border-color: hsl(var(--pg-offline)); }
   .border-paused   { border-color: hsl(var(--pg-paused)); }
 
-  /* Surface tints for layered contrast */
+  /* Surface layers */
   .bg-surface-1 { background-color: hsl(var(--surface-1)); }
   .bg-surface-2 { background-color: hsl(var(--surface-2)); }
   .bg-surface-3 { background-color: hsl(var(--surface-3)); }
 
-  /* Brand red tint — transparent red sections */
-  .bg-brand-tint       { background-color: hsl(0 80% 42% / 0.06); }
-  .bg-brand-tint-hover { background-color: hsl(0 80% 42% / 0.12); }
-
-  /* Panel card */
+  /* Panel — standard bordered surface card */
   .pg-panel {
     background-color: hsl(var(--card));
     border: 1px solid hsl(var(--border));
     border-radius: var(--radius);
   }
+
+  /* Status left-border accent — primary pattern for cards */
+  .pg-status-border-danger  { border-left: 3px solid hsl(var(--pg-danger)); }
+  .pg-status-border-warning { border-left: 3px solid hsl(var(--pg-warning)); }
+  .pg-status-border-paused  { border-left: 3px solid hsl(var(--pg-paused)); }
+  .pg-status-border-offline { border-left: 3px solid hsl(var(--pg-offline)); }
+  .pg-status-border-neutral { border-left: 3px solid hsl(var(--border)); }
+
+  /* Section divider */
+  .pg-section-gap { margin-top: 3rem; }
 
   /* Animations */
   @keyframes slide-up {
@@ -142,8 +152,12 @@
     from { opacity: 0; }
     to   { opacity: 1; }
   }
+  @keyframes slide-in-right {
+    from { opacity: 0; transform: translateX(1rem); }
+    to   { opacity: 1; transform: translateX(0); }
+  }
   @keyframes pulse-ring {
-    0%   { box-shadow: 0 0 0 0 hsl(var(--pg-danger) / 0.4); }
+    0%   { box-shadow: 0 0 0 0 hsl(var(--pg-danger) / 0.35); }
     70%  { box-shadow: 0 0 0 8px hsl(var(--pg-danger) / 0); }
     100% { box-shadow: 0 0 0 0 hsl(var(--pg-danger) / 0); }
   }
@@ -152,9 +166,10 @@
     100% { top: 100%; }
   }
 
-  .animate-slide-up   { animation: slide-up 0.3s ease-out; }
-  .animate-fade-in    { animation: fade-in  0.2s ease-out; }
-  .animate-pulse-ring { animation: pulse-ring 1.8s ease-out infinite; }
+  .animate-slide-up       { animation: slide-up 0.3s ease-out; }
+  .animate-fade-in        { animation: fade-in  0.2s ease-out; }
+  .animate-slide-in-right { animation: slide-in-right 0.25s ease-out; }
+  .animate-pulse-ring     { animation: pulse-ring 1.8s ease-out infinite; }
 
   /* Live feed scan line */
   .live-scan::after {

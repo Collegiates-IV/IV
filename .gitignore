@@ -208,6 +208,10 @@ __marimo__/
 
 # Agent skills (local only — not committed)
 frontend/.agents/
+.agent/
 
 # Agent rules (local only — not committed)
 .agents/
+
+# Role-specific markdown docs (local only — not committed)
+FRONTEND.md
